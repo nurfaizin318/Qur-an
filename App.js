@@ -1,11 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,14 +10,32 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Home from './Screen/Home/'
+import Home from './Screen/Home/';
+import Surah from './Screen/Surah'
+import {color} from './Utils'
 
-const App = () => {
+
+const Stack = createStackNavigator();
+const App = (props) => {
   return (
     <>
-      <StatusBar backgroundColor="#BF360C" barStyle="light-content" />
+      <StatusBar backgroundColor={color.green1} barStyle="light-content" />
       <SafeAreaView style={{flex:1}}>
-        <Home />
+      <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+
+                <Stack.Screen name="Home" component={Home} 
+                  options={{headerShown:false}}
+                  />
+
+                  <Stack.Screen name="Surah" component={Surah} 
+                   options={({route})=>({headerShown:true,headerTitleAlign:"center",
+                   headerStyle:{backgroundColor:'#004D40',},
+                   headerTintColor:"white",title:route.params.title})}
+                  />
+
+                  </Stack.Navigator>
+                </NavigationContainer>
       </SafeAreaView>
     </>
   );
