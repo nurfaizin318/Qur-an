@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,memo } from 'react';
 import surah from '../../Data/List/data.json';
 
 import {
@@ -252,34 +252,37 @@ const Home = (props) => {
         setData(list)
 
     }, [])
-    return (
-        <View style={{ ...styles.container, height: height, width: width, }}>
-            <View style={{ ...styles.header.container, width: width }}>
-                <Text style={styles.header.text}>    Surah : </Text>
-            </View>
+
+    const Child = memo(()=>{
+        return (
             <FlatList
-                maxToRenderPerBatch={5}
-               showsVerticalScrollIndicator={false}
-                data={data}
-                renderItem={({ item, index }) =>
+            maxToRenderPerBatch={5}
+           showsVerticalScrollIndicator={false}
+            data={data}
+            renderItem={({ item, index }) =>
 
-                    <TouchableHighlight
-                        onPress={() => props.navigation.navigate("Surah", { title: item.nama, value: draft[index] })}
-                    >
-                        <View style={{ ...styles.item.container, width: width, height: height / 10, }} >
-                            <View style={styles.item.childLeft}>
-                                <Text style={{ fontSize: 16 }}>{item.nomor}.  {item.nama}</Text>
-
-                            </View>
-                            <View style={styles.item.childRight}>
-                                <Text style={{ fontSize: 20 }}>{item.asma}</Text>
-                            </View>
+                <TouchableHighlight
+                    onPress={() => props.navigation.navigate("Surah", { title: item.nama, value: draft[index] })}
+                >
+                    <View style={{ ...styles.item.container, width: width, height: height / 10, }} >
+                        <View style={styles.item.childLeft}>
+                            <Text style={{ fontSize: 16 }}>{item.nomor}.  {item.nama}</Text>
 
                         </View>
-                    </TouchableHighlight>
-                }
-                keyExtractor={items => items.nomor}
-            />
+                        <View style={styles.item.childRight}>
+                            <Text style={{ fontSize: 20 }}>{item.asma}</Text>
+                        </View>
+
+                    </View>
+                </TouchableHighlight>
+            }
+            keyExtractor={items => items.nomor}
+        />
+        )
+    })
+    return (
+        <View style={{ ...styles.container, height: height, width: width, }}>
+                <Child />
         </View>
     )
 };
@@ -290,26 +293,28 @@ const styles = {
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor:color.green3
+        backgroundColor:color.yellow.cream
 
     },
     header: {
         container: {
-            height: 30,
-            backgroundColor: color.green2,
+            height: 70,
+            backgroundColor: color.green1,
             justifyContent: "center",
             paddingHorizontal: 15,
             alignItems: "center"
         },
         text: {
-            fontSize: 15,
-            color: color.green1,
-            fontWeight: 'bold'
+            fontSize: 19,
+            color: "white",
+            fontWeight: 'bold',
+            letterSpacing:3,
+            marginTop:20
         }
     },
     item: {
         container: {
-            backgroundColor:color.green3,
+            backgroundColor:color.yellow.cream,
             borderBottomColor: '#004D40',
             borderBottomWidth: 0.3,
             justifyContent: "center",

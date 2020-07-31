@@ -10,7 +10,8 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import Home from './Screen/Home/';
+import Menu from './Screen/Menu';
+import Home from './Screen/Home';
 import Surah from './Screen/Surah'
 import {color} from './Utils'
 
@@ -22,15 +23,18 @@ const App = (props) => {
       <StatusBar backgroundColor={color.green1} barStyle="light-content" />
       <SafeAreaView style={{flex:1}}>
       <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home">
-
-                <Stack.Screen name="Home" component={Home} 
+                <Stack.Navigator initialRouteName="Menu">
+                <Stack.Screen name="Menu" component={Menu} 
                   options={{headerShown:false}}
                   />
-
+                  <Stack.Screen name="Home" component={Home} 
+                  options={({route})=>({headerShown:true,headerTitleAlign:"center",
+                  headerStyle:{backgroundColor:'#004D40',},
+                  headerTintColor:"white",title:"Surah"})}
+                  />
                   <Stack.Screen name="Surah" component={Surah} 
                    options={({route})=>({headerShown:true,headerTitleAlign:"center",
-                   headerStyle:{backgroundColor:'#004D40',},
+                   headerStyle:{backgroundColor:'#004D40',elevation:0},
                    headerTintColor:"white",title:route.params.title})}
                   />
 

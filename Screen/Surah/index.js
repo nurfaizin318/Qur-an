@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{memo} from 'react';
 import { View, Text, FlatList, TouchableHighlight, Dimensions } from 'react-native';
 import {color} from '../../Utils'
 
@@ -10,21 +10,21 @@ const Surah = (props) => {
     React.useEffect(() => {
         setData(props.route.params.value);
     }, [])
-    return (
-        <View style={styles.contsiner}>
-            <FlatList
-                windowSize={10}
-                legacyImplementation={true}
-                maxToRenderPerBatch={1}
+
+    const Child = memo(()=>{
+            return (
+               
+                <FlatList
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 data={data}
                 renderItem={({ item }) =>
                     <View >
+                       
                         <View style={{ width: width,...styles.item.container }} >
                             <View style={styles.item.childTop}>
                                 <View style={{ width: '92%', }}>
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold', }}> {item.ar}</Text>
+                                    <Text style={{ fontSize: 20, fontWeight:'bold',letterSpacing:2 }}> {item.ar}</Text>
                                 </View>
                                 <View style={{ width: '8%' }}>
                                     <Text style={{ fontSize: 15, fontWeight: 'bold', }}> .{item.nomor}</Text>
@@ -36,6 +36,16 @@ const Surah = (props) => {
                 }
                 keyExtractor={items => items.nomor}
             />
+            )
+    })
+    return (
+        <View style={styles.container}>
+             <View style={{width:width,height:40,...styles.item.container,alignItems:"center",backgroundColor:color.green1}}>
+             <Text style={{fontSize:20,alignSelf:'center',color:"white",marginBottom:10}}>
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </Text>
+                </View>
+            <Child />
         </View>
     )
 }
@@ -43,15 +53,16 @@ const Surah = (props) => {
 export default Surah;
 
 const styles = {
-    contsiner:{
+    container:{
         flex: 1, 
-        backgroundColor:color.green3, 
+        backgroundColor:color.yellow.cream, 
         justifyContent: "center",
-         alignItems: "center" 
+        alignItems: "center",
     },
     item:{
        container:{
-        backgroundColor: color.green3,
+
+        backgroundColor: color.yellow.cream,
         borderBottomColor: color.green1, 
         borderBottomWidth: 0.3, 
         paddingHorizontal: 10, 
