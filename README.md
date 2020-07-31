@@ -10,4 +10,5 @@ Mobile Apps Qur'an
  1. delete your package.lock.json
  2. npm install
  ## Screnshoot
+ ![Screenshoot](Utils/Screenshoot/qur'an.jpg "Title")
  
